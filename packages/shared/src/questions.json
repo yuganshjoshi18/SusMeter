@@ -1,0 +1,239 @@
+{
+  "version": "1.0.0",
+  "categories": [
+    {
+      "id": "communication",
+      "label": "Communication",
+      "description": "How clearly and respectfully people exchange thoughts, needs and limits.",
+      "healthySignal": "Messages are direct, specific and open to clarification.",
+      "watchSignal": "Messages are vague, dismissive or repeatedly ignored."
+    },
+    {
+      "id": "honesty",
+      "label": "Honesty",
+      "description": "Whether information is shared accurately and inconsistencies are addressed.",
+      "healthySignal": "Accounts stay consistent and gaps are owned up to.",
+      "watchSignal": "Stories shift, details are withheld, or accountability is avoided."
+    },
+    {
+      "id": "trust",
+      "label": "Trust",
+      "description": "The degree of reliability, transparency and mutual confidence reported.",
+      "healthySignal": "Agreements are kept and privacy is respected.",
+      "watchSignal": "Agreements are broken without repair or explanation."
+    },
+    {
+      "id": "boundaries",
+      "label": "Personal boundaries",
+      "description": "Whether stated limits about time, space, body and belongings are honoured.",
+      "healthySignal": "A 'no' is accepted without debate or punishment.",
+      "watchSignal": "Limits are pushed, tested or treated as negotiable."
+    },
+    {
+      "id": "accountability",
+      "label": "Accountability",
+      "description": "How mistakes, impact and repair are handled after something goes wrong.",
+      "healthySignal": "Impact is acknowledged and changed behaviour follows.",
+      "watchSignal": "Blame is shifted, harm is minimised, or 'sorry' loops repeat."
+    },
+    {
+      "id": "support",
+      "label": "Emotional support",
+      "description": "Whether feelings are met with steadiness, care and practical help.",
+      "healthySignal": "Distress is met with listening and useful support.",
+      "watchSignal": "Distress is mocked, redirected or made about someone else."
+    },
+    {
+      "id": "control",
+      "label": "Jealousy and control",
+      "description": "Attempts to monitor, restrict or direct another person's choices.",
+      "healthySignal": "Jealousy is named and managed without restricting freedom.",
+      "watchSignal": "Jealousy becomes rules, surveillance or isolation."
+    },
+    {
+      "id": "conflict",
+      "label": "Conflict resolution",
+      "description": "How disagreement is handled, repaired and prevented from escalating.",
+      "healthySignal": "Both people can raise issues and leave with a next step.",
+      "watchSignal": "Conflict becomes threats, silent treatment or a win/lose contest."
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-comms-1",
+      "category": "communication",
+      "prompt": "When something bothers them, what usually happens next?",
+      "hint": "Think about the last few months, not one bad day.",
+      "options": [
+        { "id": "a", "label": "They say it directly and stay curious", "description": "You leave the conversation understanding the issue.", "weight": 0, "note": "Direct, curious communication is a healthy signal." },
+        { "id": "b", "label": "They hint, sulk or go quiet", "description": "You are left guessing what is wrong.", "weight": 2, "note": "Indirect signals can make repair harder." },
+        { "id": "c", "label": "They raise it as an accusation", "description": "The conversation starts with blame.", "weight": 3, "note": "Accusatory openings can shut down honest exchange." }
+      ]
+    },
+    {
+      "id": "q-comms-2",
+      "category": "communication",
+      "prompt": "When you say plans have changed, what is their first response?",
+      "hint": "Look for flexibility, not perfection.",
+      "options": [
+        { "id": "a", "label": "They ask what works and adjust", "description": "The plan changes without a punishment phase.", "weight": 0, "note": "Flexibility supports mutual trust." },
+        { "id": "b", "label": "They question your reason repeatedly", "description": "You end up defending rather than explaining.", "weight": 2, "note": "Repeated questioning can feel like pressure." },
+        { "id": "c", "label": "They retaliate or withdraw affection", "description": "Changing plans comes at an emotional cost.", "weight": 3, "note": "Using affection as leverage is a serious boundary concern." }
+      ]
+    },
+    {
+      "id": "q-honesty-1",
+      "category": "honesty",
+      "prompt": "When you notice a gap in their story, what tends to follow?",
+      "hint": "A single fuzzy detail is different from a pattern.",
+      "options": [
+        { "id": "a", "label": "They clarify and correct it", "description": "Small corrections are handled plainly.", "weight": 0, "note": "Correction without defensiveness supports reliability." },
+        { "id": "b", "label": "They change the subject", "description": "The gap never really gets addressed.", "weight": 2, "note": "Topic changes can block accountability." },
+        { "id": "c", "label": "They insist you misremember", "description": "You start doubting your own notes.", "weight": 3, "note": "Persistent denial of observable facts is a documented concern pattern." }
+      ]
+    },
+    {
+      "id": "q-honesty-2",
+      "category": "honesty",
+      "prompt": "How do they talk about private information you shared?",
+      "hint": "Include what happens when you are not in the room.",
+      "options": [
+        { "id": "a", "label": "They keep it private", "description": "Your trust is treated as a responsibility.", "weight": 0, "note": "Discretion is a healthy trust signal." },
+        { "id": "b", "label": "They share vague hints", "description": "Enough detail that others know who you are.", "weight": 2, "note": "Loose sharing weakens trust." },
+        { "id": "c", "label": "They use it in arguments", "description": "Private details become ammunition.", "weight": 3, "note": "Weaponising private information is a serious boundary concern." }
+      ]
+    },
+    {
+      "id": "q-trust-1",
+      "category": "trust",
+      "prompt": "When they say they will do something, what usually happens?",
+      "hint": "Think about repeated promises, not one busy week.",
+      "options": [
+        { "id": "a", "label": "They follow through or communicate early", "description": "Reliability is visible in small things.", "weight": 0, "note": "Follow-through builds dependability." },
+        { "id": "b", "label": "It happens eventually, after reminders", "description": "You carry the follow-up labour.", "weight": 1, "note": "Occasional lapse; the pattern matters more than the event." },
+        { "id": "c", "label": "The promise quietly disappears", "description": "Nothing changes and it is not discussed.", "weight": 3, "note": "Repeated broken agreements erode trust." }
+      ]
+    },
+    {
+      "id": "q-trust-2",
+      "category": "trust",
+      "prompt": "How does the relationship handle time apart or other friendships?",
+      "hint": "Healthy trust leaves room for separate lives.",
+      "options": [
+        { "id": "a", "label": "Both people keep their own lives", "description": "Space is normal, not suspicious.", "weight": 0, "note": "Autonomy and connection can coexist." },
+        { "id": "b", "label": "It is fine until a specific person is involved", "description": "Comfort depends on who is around.", "weight": 2, "note": "Selective discomfort may point to unresolved insecurity." },
+        { "id": "c", "label": "Time apart is treated as disloyalty", "description": "Normal independence is framed as a problem.", "weight": 3, "note": "Framing independence as disloyalty is a controlling pattern." }
+      ]
+    },
+    {
+      "id": "q-boundaries-1",
+      "category": "boundaries",
+      "prompt": "What happens when you say no to something small?",
+      "hint": "Small no's reveal how larger no's will be treated.",
+      "options": [
+        { "id": "a", "label": "It is accepted without comment", "description": "No explanation required.", "weight": 0, "note": "A respected no is a strong healthy signal." },
+        { "id": "b", "label": "They ask once or twice why", "description": "Curious, but they stop when you hold the line.", "weight": 1, "note": "Clarifying questions are fine when the limit still holds." },
+        { "id": "c", "label": "They keep pushing until you give in", "description": "Your answer stops mattering.", "weight": 3, "note": "Wearing down a no is a boundary violation pattern." }
+      ]
+    },
+    {
+      "id": "q-boundaries-2",
+      "category": "boundaries",
+      "prompt": "How are your phone, messages and personal space treated?",
+      "hint": "Privacy does not disappear because a relationship exists.",
+      "options": [
+        { "id": "a", "label": "Each person has privacy", "description": "Checking in is never surveillance.", "weight": 0, "note": "Respect for privacy is a healthy baseline." },
+        { "id": "b", "label": "They ask to look, then accept a no", "description": "Curiosity stays consensual.", "weight": 1, "note": "Asking is different from demanding." },
+        { "id": "c", "label": "They check without asking or demand passwords", "description": "Privacy is treated as suspicious.", "weight": 3, "note": "Unconsented monitoring is a serious privacy concern." }
+      ]
+    },
+    {
+      "id": "q-accountability-1",
+      "category": "accountability",
+      "prompt": "After they hurt you, what does repair look like?",
+      "hint": "Look at changed behaviour, not just the apology.",
+      "options": [
+        { "id": "a", "label": "They name the impact and change something", "description": "The apology has follow-through.", "weight": 0, "note": "Repair includes behaviour change." },
+        { "id": "b", "label": "They apologise, then repeat it", "description": "The words arrive; the pattern stays.", "weight": 2, "note": "Repeated apologies without change are a watch signal." },
+        { "id": "c", "label": "They say you are too sensitive", "description": "The harm becomes your problem.", "weight": 3, "note": "Minimising impact blocks accountability." }
+      ]
+    },
+    {
+      "id": "q-accountability-2",
+      "category": "accountability",
+      "prompt": "When a mutual mistake happens, where does the blame land?",
+      "hint": "Notice who has to do the emotional clean-up.",
+      "options": [
+        { "id": "a", "label": "Both parts are owned", "description": "Responsibility is shared honestly.", "weight": 0, "note": "Shared ownership supports fairness." },
+        { "id": "b", "label": "It depends on the day", "description": "Accountability is inconsistent.", "weight": 2, "note": "Inconsistency makes repair unpredictable." },
+        { "id": "c", "label": "It is always your fault", "description": "You never see their part named.", "weight": 3, "note": "Chronic blame-shifting is a documented concern pattern." }
+      ]
+    },
+    {
+      "id": "q-support-1",
+      "category": "support",
+      "prompt": "When you are having a hard day, what do they do?",
+      "hint": "Think about the last time you were genuinely low.",
+      "options": [
+        { "id": "a", "label": "Listen and ask what would help", "description": "You feel less alone afterwards.", "weight": 0, "note": "Responsive support is a healthy signal." },
+        { "id": "b", "label": "Try to fix it immediately", "description": "Helpful intent, but you may feel unheard.", "weight": 1, "note": "Support style mismatch is worth naming, not pathologising." },
+        { "id": "c", "label": "Mock, minimise or make it about them", "description": "You regret bringing it up.", "weight": 3, "note": "Dismissing distress is a serious relational concern." }
+      ]
+    },
+    {
+      "id": "q-support-2",
+      "category": "support",
+      "prompt": "How do they respond to your wins and good news?",
+      "hint": "Support shows up in celebration too.",
+      "options": [
+        { "id": "a", "label": "They are genuinely glad", "description": "Your win is not a competition.", "weight": 0, "note": "Shared joy is a healthy signal." },
+        { "id": "b", "label": "They redirect to themselves", "description": "The spotlight moves away quickly.", "weight": 2, "note": "Repeated redirecting can feel dismissive." },
+        { "id": "c", "label": "They undermine or compete", "description": "Good news becomes an argument.", "weight": 3, "note": "Undermining achievements can be a control pattern." }
+      ]
+    },
+    {
+      "id": "q-control-1",
+      "category": "control",
+      "prompt": "How does jealousy show up in practice?",
+      "hint": "Feelings are allowed; restrictions are the thing to examine.",
+      "options": [
+        { "id": "a", "label": "They name it and manage it", "description": "It becomes a conversation, not a rule.", "weight": 0, "note": "Naming jealousy without restricting freedom is healthy." },
+        { "id": "b", "label": "They ask a lot of questions", "description": "It can feel tiring, but you still choose your plans.", "weight": 2, "note": "Repeated questioning can become monitoring." },
+        { "id": "c", "label": "They set rules about who you see", "description": "Your choices shrink around their comfort.", "weight": 3, "note": "Restricting contact is a controlling behaviour pattern." }
+      ]
+    },
+    {
+      "id": "q-control-2",
+      "category": "control",
+      "prompt": "Can you make ordinary decisions without checking first?",
+      "hint": "Clothes, spending, work and plans all count.",
+      "options": [
+        { "id": "a", "label": "Yes, fully", "description": "Independence is assumed.", "weight": 0, "note": "Decision autonomy is a healthy baseline." },
+        { "id": "b", "label": "Mostly, with some guilt", "description": "You anticipate a reaction.", "weight": 2, "note": "Anticipating guilt can signal an unbalanced dynamic." },
+        { "id": "c", "label": "No, approval is required", "description": "Daily choices are monitored.", "weight": 3, "note": "Requiring approval for ordinary choices is a controlling pattern." }
+      ]
+    },
+    {
+      "id": "q-conflict-1",
+      "category": "conflict",
+      "prompt": "When you disagree, can you raise your side safely?",
+      "hint": "Safety here means emotionally, not just physically.",
+      "options": [
+        { "id": "a", "label": "Yes, even when it is uncomfortable", "description": "Disagreement does not change your standing.", "weight": 0, "note": "Being able to disagree is a strong healthy signal." },
+        { "id": "b", "label": "Only if the topic is small", "description": "Certain subjects are off limits.", "weight": 2, "note": "Shrinking topics can hide unresolved issues." },
+        { "id": "c", "label": "No, it escalates or punishes you", "description": "You keep the real issue to yourself.", "weight": 3, "note": "Punishment for disagreement is a serious concern." }
+      ]
+    },
+    {
+      "id": "q-conflict-2",
+      "category": "conflict",
+      "prompt": "How does an argument usually end?",
+      "hint": "Look at what happens the next morning, not the last sentence.",
+      "options": [
+        { "id": "a", "label": "With a plan or mutual understanding", "description": "You know what changes next.", "weight": 0, "note": "A concrete repair step is a healthy sign." },
+        { "id": "b", "label": "It fades without resolution", "description": "The same issue returns later.", "weight": 2, "note": "Unresolved loops keep the issue alive." },
+        { "id": "c", "label": "With threats, silence or score-keeping", "description": "You feel worse than before.", "weight": 3, "note": "Threats and punitive silence are serious conflict concerns." }
+      ]
+    }
+  ]
+}

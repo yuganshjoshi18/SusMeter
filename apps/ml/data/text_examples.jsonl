@@ -1,0 +1,84 @@
+{"id":"e001","text":"I need you to tell me where you are and who you are with every minute, otherwise I cannot trust you.","labels":["controlling","coercive"]}
+{"id":"e002","text":"You cannot wear that to the party. People will think things and I do not like it.","labels":["controlling"]}
+{"id":"e003","text":"If you go out with your friends, I will ignore you for a week.","labels":["coercive","controlling"]}
+{"id":"e004","text":"I checked your messages while you were asleep because I had a feeling.","labels":["boundary_violation","controlling"]}
+{"id":"e005","text":"You do not need to see your family this weekend. I need you here instead.","labels":["controlling","boundary_violation"]}
+{"id":"e006","text":"Give me your passwords or it means you are hiding something.","labels":["coercive","boundary_violation","controlling"]}
+{"id":"e007","text":"I am not angry. I am just asking why you did not answer after four minutes.","labels":["controlling"]}
+{"id":"e008","text":"We agreed you would tell me before making plans. You did not, and that hurt. Next time I need a heads up.","labels":["accountability","healthy_communication"]}
+{"id":"e009","text":"I was out of line when I snapped. I am sorry, and I will step away next time I feel heated.","labels":["accountability","healthy_communication"]}
+{"id":"e010","text":"You can be upset with me. Tell me what you need and I will listen.","labels":["healthy_communication"]}
+{"id":"e011","text":"I hear that you need tonight to yourself. Of course, take the space you need.","labels":["healthy_communication"]}
+{"id":"e012","text":"You are being dramatic and too sensitive. Stop overreacting.","labels":["disrespect"]}
+{"id":"e013","text":"Nobody else would put up with you. You should be grateful.","labels":["disrespect","coercive"]}
+{"id":"e014","text":"I do not care what you want. This is how it is going to be.","labels":["disrespect","controlling"]}
+{"id":"e015","text":"Fine, do whatever you want. I will just remember this.","labels":["coercive","disrespect"]}
+{"id":"e016","text":"If you really loved me, you would cancel your trip.","labels":["coercive","controlling"]}
+{"id":"e017","text":"I told you I was not okay with sharing that photo, and you posted it anyway.","labels":["boundary_violation"]}
+{"id":"e018","text":"You said I could say no, but then you kept asking until I agreed.","labels":["boundary_violation","coercive"]}
+{"id":"e019","text":"I need some time alone after work. Please do not take it personally.","labels":["healthy_communication"]}
+{"id":"e020","text":"Thanks for telling me. I was wrong to assume, and I will check next time.","labels":["accountability","healthy_communication"]}
+{"id":"e021","text":"I feel jealous when you mention them, and I am working on it instead of making rules.","labels":["accountability","healthy_communication"]}
+{"id":"e022","text":"I am sorry I raised my voice. It was not okay, and I will take a break before we continue.","labels":["accountability"]}
+{"id":"e023","text":"Why are you so cold lately? After everything I have done for you.","labels":["coercive","disrespect"]}
+{"id":"e024","text":"You owe me for all the times I let things slide.","labels":["coercive"]}
+{"id":"e025","text":"Do that and I will tell everyone what you told me in confidence.","labels":["coercive","boundary_violation"]}
+{"id":"e026","text":"Stop crying. You are making this about you again.","labels":["disrespect"]}
+{"id":"e027","text":"Your opinion does not matter here. I have already decided.","labels":["disrespect","controlling"]}
+{"id":"e028","text":"I do not need your permission to go. I am telling you so you know.","labels":["healthy_communication"]}
+{"id":"e029","text":"I want us to talk, but I respect that you need until tomorrow.","labels":["healthy_communication"]}
+{"id":"e030","text":"Can we agree to put phones away during dinner? I would like us to be present.","labels":["healthy_communication"]}
+{"id":"e031","text":"You never listen. You always make everything about yourself.","labels":["disrespect"]}
+{"id":"e032","text":"I noticed we keep having the same argument. What part is mine to work on?","labels":["accountability","healthy_communication"]}
+{"id":"e033","text":"I get that you were stressed. It still hurt when you called me that. Can we talk?","labels":["healthy_communication"]}
+{"id":"e034","text":"I said no to lending money and they kept asking, bringing up my family each time.","labels":["boundary_violation","coercive"]}
+{"id":"e035","text":"They read my diary and then laughed about what they found.","labels":["boundary_violation","disrespect"]}
+{"id":"e036","text":"They told me to delete my friends and only hang out with them.","labels":["controlling"]}
+{"id":"e037","text":"They said they would hurt themselves if I left, so I stayed.","labels":["coercive"]}
+{"id":"e038","text":"Every time I set a limit, they call me selfish until I drop it.","labels":["coercive","boundary_violation","disrespect"]}
+{"id":"e039","text":"They apologised and then did the same thing the next day, again.","labels":["disrespect"]}
+{"id":"e040","text":"I was wrong. I cancelled our plan without telling you and I can see why that was hurtful.","labels":["accountability","healthy_communication"]}
+{"id":"e041","text":"Let us pause. I want to understand your side before we decide what happens next.","labels":["healthy_communication"]}
+{"id":"e042","text":"You can disagree with me. I will not punish you for having a different view.","labels":["healthy_communication"]}
+{"id":"e043","text":"I need you to prove you are loyal by blocking that guy.","labels":["controlling","coercive"]}
+{"id":"e044","text":"I am watching your location because I worry. That is not controlling, it is love.","labels":["controlling","boundary_violation"]}
+{"id":"e045","text":"They show up uninvited even after I say I need space.","labels":["boundary_violation","controlling"]}
+{"id":"e046","text":"They call me names when I disagree, then say it was a joke.","labels":["disrespect"]}
+{"id":"e047","text":"They say I am just joking after every insult, then act offended when I am hurt.","labels":["disrespect"]}
+{"id":"e048","text":"They keep score of every favour and use it to get their way.","labels":["coercive"]}
+{"id":"e049","text":"They threatened to expose my secrets if I did not do what they wanted.","labels":["coercive","boundary_violation"]}
+{"id":"e050","text":"I set a boundary about texting after midnight and they respected it straight away.","labels":["healthy_communication"]}
+{"id":"e051","text":"Thanks for saying no clearly. I will respect it.","labels":["healthy_communication"]}
+{"id":"e052","text":"I felt ignored when you did not reply, but I know you were driving. I will wait until you are free.","labels":["healthy_communication","accountability"]}
+{"id":"e053","text":"I snapped earlier. That was not fair to you. I am going to take ten minutes and come back calmer.","labels":["accountability","healthy_communication"]}
+{"id":"e054","text":"Why do you always have to be so difficult? Everyone else gets it.","labels":["disrespect"]}
+{"id":"e055","text":"You are useless and you never get anything right.","labels":["disrespect"]}
+{"id":"e056","text":"I do not want you going out dressed like that. It embarrasses me.","labels":["controlling","disrespect"]}
+{"id":"e057","text":"If you loved me you would not need friends who make you laugh like that.","labels":["coercive","controlling"]}
+{"id":"e058","text":"They demanded my passwords for trust and checked them without asking.","labels":["boundary_violation","controlling"]}
+{"id":"e059","text":"They told me not to tell anyone about our arguments because it is private.","labels":["controlling","coercive"]}
+{"id":"e060","text":"I told them I needed a night alone and they showed up at my door anyway.","labels":["boundary_violation"]}
+{"id":"e061","text":"I appreciate you telling me. I will think about it and get back to you.","labels":["healthy_communication"]}
+{"id":"e062","text":"I made a mistake and I want to own it instead of defending it.","labels":["accountability"]}
+{"id":"e063","text":"I get why that upset you. I would not want that either.","labels":["healthy_communication"]}
+{"id":"e064","text":"They called me pathetic in front of friends and said I was too sensitive to take a joke.","labels":["disrespect"]}
+{"id":"e065","text":"They said if I did not apologise they would stop talking to me for a month.","labels":["coercive"]}
+{"id":"e066","text":"They keep asking for photos after I said no twice.","labels":["boundary_violation","coercive"]}
+{"id":"e067","text":"I need you to answer every message straight away or I will assume the worst.","labels":["controlling"]}
+{"id":"e068","text":"I feel uneasy when plans change, so I check in. Tell me if that is too much.","labels":["healthy_communication","accountability"]}
+{"id":"e069","text":"I should not have spoken over you. Your point matters. Please continue.","labels":["accountability","healthy_communication"]}
+{"id":"e070","text":"They use my insecurities as examples when they argue.","labels":["disrespect","boundary_violation"]}
+{"id":"e071","text":"They said they would pay for my phone if I stopped seeing my friends, then took it back.","labels":["coercive","controlling"]}
+{"id":"e072","text":"You can have your own plans. I trust you, and we can catch up after.","labels":["healthy_communication"]}
+{"id":"e073","text":"I was scared you were leaving, and I know that is mine to manage, not yours to fix.","labels":["accountability","healthy_communication"]}
+{"id":"e074","text":"They call me every ten minutes when I am out and demand a photo of the room.","labels":["controlling","boundary_violation"]}
+{"id":"e075","text":"They said do this or I will tell your family everything when I hesitated.","labels":["coercive","boundary_violation"]}
+{"id":"e076","text":"I need space tonight. I will text you tomorrow and I mean that kindly.","labels":["healthy_communication"]}
+{"id":"e077","text":"I said something cruel, I own it, and I am going to change how I speak when I am angry.","labels":["accountability"]}
+{"id":"e078","text":"You always do this. You are impossible. I regret even trying.","labels":["disrespect"]}
+{"id":"e079","text":"They went through my bank statements and questioned every purchase.","labels":["boundary_violation","controlling"]}
+{"id":"e080","text":"I want to understand why that upset you. Can you tell me what you needed in that moment?","labels":["healthy_communication"]}
+{"id":"e081","text":"They said no one else would love me, so I should stop complaining.","labels":["disrespect","coercive"]}
+{"id":"e082","text":"I told them I was not comfortable and they said I was overthinking it, then did it anyway.","labels":["boundary_violation","disrespect"]}
+{"id":"e083","text":"I let my friend borrow my notes after I said yes. That is different from being pressured.","labels":["healthy_communication"]}
+{"id":"e084","text":"I said I would call at eight, called at eight, and told them when I was running late.","labels":["healthy_communication","accountability"]}

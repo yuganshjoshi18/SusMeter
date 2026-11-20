@@ -1,0 +1,1 @@
+"""SusMeter applications namespace."""

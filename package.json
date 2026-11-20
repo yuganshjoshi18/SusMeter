@@ -1,0 +1,31 @@
+{
+  "name": "susmeter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SusMeter — examine relationship behaviour, evidence and context with machine learning.",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api,ml -c cyan,magenta,yellow \"npm:dev:web\" \"npm:dev:api\" \"npm:dev:ml\"",
+    "dev:web": "npm run dev -w @susmeter/web",
+    "dev:api": "npm run dev -w @susmeter/api",
+    "dev:ml": "python scripts/dev_ml.py",
+    "build": "npm run build -w @susmeter/shared && npm run build -w @susmeter/web && npm run build -w @susmeter/api",
+    "test": "npm run test -w @susmeter/shared && npm run test -w @susmeter/web && npm run test -w @susmeter/api",
+    "test:ml": "python -m pytest apps/ml/tests -q",
+    "train:ml": "python -m apps.ml.train",
+    "lint": "npm run lint -w @susmeter/web && npm run lint -w @susmeter/api",
+    "prisma:generate": "npm run prisma:generate -w @susmeter/api",
+    "prisma:migrate": "npm run prisma:migrate -w @susmeter/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

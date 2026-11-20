@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AssessmentType {
+  QUIZ
+  TEXT
+}
+
+model User {
+  id           String          @id @default(cuid())
+  email        String          @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  assessments  Assessment[]
+  reports      Report[]
+  settings     PrivacySettings?
+}
+
+model Assessment {
+  id        String         @id @default(cuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      AssessmentType
+  title     String
+  input     Json
+  result    Json
+  createdAt DateTime       @default(now())
+  report    Report?
+
+  @@index([userId, createdAt(sort: Desc)])
+}
+
+model Report {
+  id           String     @id @default(cuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assessmentId String     @unique
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  summary      String
+  createdAt    DateTime   @default(now())
+
+  @@index([userId, createdAt(sort: Desc)])
+}
+
+model PrivacySettings {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  storeAssessments  Boolean  @default(true)
+  allowAnalytics    Boolean  @default(false)
+  emailNotifications Boolean @default(true)
+  updatedAt         DateTime @updatedAt
+}
