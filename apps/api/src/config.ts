@@ -11,7 +11,8 @@ function numberFromEnv(value: string | undefined, fallback: number): number {
 }
 
 export const config = {
-  port: numberFromEnv(process.env.API_PORT, 4000),
+  // Render sets PORT automatically; local development keeps the fixed 4000 port.
+  port: numberFromEnv(process.env.API_PORT || process.env.PORT, 4000),
   jwtSecret: process.env.JWT_SECRET || 'susmeter-development-secret-change-me',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   mlUrl: (process.env.ML_SERVICE_URL || 'http://localhost:8000').replace(/\/$/, ''),

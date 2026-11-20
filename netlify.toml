@@ -1,0 +1,22 @@
+# Netlify deploys only the React/Vite frontend. The Express API, FastAPI ML
+# service and Postgres are deployed by render.yaml.
+
+[build]
+  base = "/"
+  publish = "apps/web/dist"
+  command = "npm run build -w @susmeter/shared && npm run build -w @susmeter/web"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# VITE_API_URL must point at the Render API including the /api prefix, e.g.
+#   netlify env:set VITE_API_URL https://susmeter-api.onrender.com/api
+# Do not set VITE_API_URL here: netlify.toml overrides UI/CLI values, and VITE_
+# variables are inlined into the public client bundle. Leave it empty only when
+# the app is served with a same-origin /api proxy (local development).
+
+# React Router uses history routing, so every path serves the SPA shell.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

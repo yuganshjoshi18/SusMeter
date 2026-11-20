@@ -1,0 +1,59 @@
+# Render Blueprint: Express API + Python FastAPI ML service + Postgres.
+# Deploy this from https://dashboard.render.com/blueprints using the SusMeter repo.
+# The React frontend is deployed separately to Netlify (see netlify.toml).
+
+services:
+  # Python ML service. Built from the existing Dockerfile with the repo root as
+  # context so `apps.ml.app.main:app` is importable and packages/shared is present.
+  - type: web
+    name: susmeter-ml
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./apps/ml/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      # The API calls this service server-to-server, so no browser CORS policy is needed.
+      - key: CORS_ORIGINS
+        value: '*'
+      - key: PYTHONUNBUFFERED
+        value: '1'
+
+  # Express API. Listens on Render's PORT (see apps/api/src/config.ts).
+  # Free web services do not support preDeployCommand, so migrations run in dockerCommand.
+  - type: web
+    name: susmeter-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    dockerCommand: 'sh -c "npx prisma migrate deploy --schema apps/api/prisma/schema.prisma && node apps/api/dist/server.js"'
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: susmeter-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      # Public URL of the ML service above. Change this if Render assigns a
+      # different onrender.com hostname (for example if the name was taken).
+      - key: ML_SERVICE_URL
+        value: https://susmeter-ml.onrender.com
+      # Render asks for this value at blueprint sync: your Netlify site URL,
+      # e.g. https://susmeter.netlify.app. Used as the API's CORS origin.
+      - key: WEB_ORIGIN
+        sync: false
+
+databases:
+  - name: susmeter-db
+    plan: free
+    databaseName: susmeter
+    user: susmeter
+    postgresMajorVersion: '16'

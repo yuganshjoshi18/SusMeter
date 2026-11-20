@@ -91,6 +91,51 @@ root and respects `ML_PORT` from the shell or root `.env`.
 
 ---
 
+## Deployment
+
+Two config files are included:
+
+| File | Deploys |
+| --- | --- |
+| `render.yaml` | Postgres, Python FastAPI ML service (`susmeter-ml`), Express API (`susmeter-api`) |
+| `netlify.toml` | React/Vite static frontend |
+
+FastAPI is Python-only, so it stays on Render. The Express API proxies ML calls to `ML_SERVICE_URL`; Netlify serves only the built frontend.
+
+### 1. Backend on Render
+
+1. Push this repo to GitHub.
+2. In Render, choose **Blueprints → New Blueprint Instance** and select the repo. Render reads `render.yaml` from the root.
+3. When Render prompts for `WEB_ORIGIN`, enter your final Netlify URL, e.g. `https://susmeter.netlify.app`. This is the API's allowed CORS origin.
+4. Render generates `JWT_SECRET`, wires `DATABASE_URL` from `susmeter-db`, and runs `prisma migrate deploy` before starting the API.
+5. Note the API URL (normally `https://susmeter-api.onrender.com`) and check:
+
+```bash
+curl https://susmeter-api.onrender.com/api/health
+curl https://susmeter-api.onrender.com/api/model/info
+```
+
+If Render assigns a different hostname for the ML service, update `ML_SERVICE_URL` in the API service's environment and redeploy.
+
+### 2. Frontend on Netlify
+
+1. In Netlify, choose **Add new site → Import an existing project** and select the same repo. `netlify.toml` supplies the build command, Node version, publish directory and SPA fallback.
+2. Set the API base URL (it must include the `/api` suffix):
+
+```bash
+netlify env:set VITE_API_URL https://susmeter-api.onrender.com/api
+```
+
+3. Trigger a deploy. Update `WEB_ORIGIN` on Render if your Netlify URL differs from the one entered in step 3 above.
+
+> `VITE_API_URL` is a public build-time variable baked into the client bundle; never put secrets in it. Leave it empty only for local development, where Vite proxies `/api` to `http://localhost:4000`.
+
+### 3. Free-plan caveat
+
+Render's free web services sleep when idle and the API's ML call times out after 25 seconds. A cold ML start can exceed that. If users see "The analysis service is unavailable", upgrade `susmeter-ml` and `susmeter-api` to a paid always-on plan in `render.yaml`.
+
+---
+
 ## Scripts
 
 | Command | Description |
