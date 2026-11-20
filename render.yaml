@@ -1,4 +1,5 @@
-# Render Blueprint: Express API + Python FastAPI ML service + Postgres.
+# Render Blueprint: Express API + Python FastAPI ML service.
+# Postgres is hosted by Supabase, not Render.
 # Deploy this from https://dashboard.render.com/blueprints using the SusMeter repo.
 # The React frontend is deployed separately to Netlify (see netlify.toml).
 
@@ -34,10 +35,11 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      # Supabase session pooler string (port 5432), used for both Prisma Client
+      # and `prisma migrate deploy`. Render prompts for this at blueprint sync:
+      #   postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres
       - key: DATABASE_URL
-        fromDatabase:
-          name: susmeter-db
-          property: connectionString
+        sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_EXPIRES_IN
@@ -50,10 +52,3 @@ services:
       # e.g. https://susmeter.netlify.app. Used as the API's CORS origin.
       - key: WEB_ORIGIN
         sync: false
-
-databases:
-  - name: susmeter-db
-    plan: free
-    databaseName: susmeter
-    user: susmeter
-    postgresMajorVersion: '16'

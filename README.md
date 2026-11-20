@@ -93,21 +93,37 @@ root and respects `ML_PORT` from the shell or root `.env`.
 
 ## Deployment
 
-Two config files are included:
-
-| File | Deploys |
+| File / service | Role |
 | --- | --- |
-| `render.yaml` | Postgres, Python FastAPI ML service (`susmeter-ml`), Express API (`susmeter-api`) |
+| Supabase project | Managed Postgres database |
+| `render.yaml` | Python FastAPI ML service (`susmeter-ml`) + Express API (`susmeter-api`) |
 | `netlify.toml` | React/Vite static frontend |
 
-FastAPI is Python-only, so it stays on Render. The Express API proxies ML calls to `ML_SERVICE_URL`; Netlify serves only the built frontend.
+FastAPI is Python-only, so it stays on Render alongside the Express API. The API reads the Supabase connection string from `DATABASE_URL`; Netlify serves only the built frontend.
 
-### 1. Backend on Render
+### 1. Supabase database
+
+1. Create a project at [supabase.com](https://supabase.com).
+2. Open **Project Settings → Database → Connection strings** and copy the **Session pooler** string (port `5432`). It looks like:
+
+```text
+postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres
+```
+
+3. For production, create a dedicated Prisma database role instead of using the `postgres` superuser. Follow the [Supabase Prisma guide](https://supabase.com/docs/guides/database/prisma) and use that role in the connection string.
+4. Keep the connection string secret. You will paste it into Render when prompted.
+
+The session pooler supports prepared statements, so the same URL works for both Prisma Client at runtime and `prisma migrate deploy` during startup. Supabase's transaction pooler (port `6543`) is an alternative for heavier traffic, but it needs `?pgbouncer=true` plus a separate direct URL for migrations.
+
+### 2. Backend on Render
 
 1. Push this repo to GitHub.
 2. In Render, choose **Blueprints → New Blueprint Instance** and select the repo. Render reads `render.yaml` from the root.
-3. When Render prompts for `WEB_ORIGIN`, enter your final Netlify URL, e.g. `https://susmeter.netlify.app`. This is the API's allowed CORS origin.
-4. Render generates `JWT_SECRET`, wires `DATABASE_URL` from `susmeter-db`, and runs `prisma migrate deploy` before starting the API.
+3. When Render prompts for variables:
+   - `DATABASE_URL` — the Supabase session pooler string from step 1.
+   - `WEB_ORIGIN` — your final Netlify URL, e.g. `https://susmeter.netlify.app`. This is the API's allowed CORS origin.
+   - `JWT_SECRET` is generated automatically by Render.
+4. The API container runs `prisma migrate deploy` before starting, so the existing migration is applied to Supabase on first deploy.
 5. Note the API URL (normally `https://susmeter-api.onrender.com`) and check:
 
 ```bash
@@ -117,7 +133,7 @@ curl https://susmeter-api.onrender.com/api/model/info
 
 If Render assigns a different hostname for the ML service, update `ML_SERVICE_URL` in the API service's environment and redeploy.
 
-### 2. Frontend on Netlify
+### 3. Frontend on Netlify
 
 1. In Netlify, choose **Add new site → Import an existing project** and select the same repo. `netlify.toml` supplies the build command, Node version, publish directory and SPA fallback.
 2. Set the API base URL (it must include the `/api` suffix):
@@ -126,11 +142,11 @@ If Render assigns a different hostname for the ML service, update `ML_SERVICE_UR
 netlify env:set VITE_API_URL https://susmeter-api.onrender.com/api
 ```
 
-3. Trigger a deploy. Update `WEB_ORIGIN` on Render if your Netlify URL differs from the one entered in step 3 above.
+3. Trigger a deploy. Update `WEB_ORIGIN` on Render if your Netlify URL differs from the one entered above.
 
 > `VITE_API_URL` is a public build-time variable baked into the client bundle; never put secrets in it. Leave it empty only for local development, where Vite proxies `/api` to `http://localhost:4000`.
 
-### 3. Free-plan caveat
+### 4. Free-plan caveat
 
 Render's free web services sleep when idle and the API's ML call times out after 25 seconds. A cold ML start can exceed that. If users see "The analysis service is unavailable", upgrade `susmeter-ml` and `susmeter-api` to a paid always-on plan in `render.yaml`.
 
