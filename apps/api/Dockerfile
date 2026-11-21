@@ -14,7 +14,10 @@ RUN npm run build -w @susmeter/shared && npx prisma generate --schema apps/api/p
 FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=deps /app/node_modules ./node_modules
+# Use the build stage's node_modules: `prisma generate` writes the generated
+# client into node_modules/.prisma/client there. The deps-stage copy only has
+# the stub, which throws "@prisma/client did not initialize yet" on startup.
+COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/apps/api/dist ./apps/api/dist
 COPY --from=build /app/apps/api/prisma ./apps/api/prisma
 COPY --from=build /app/packages/shared/dist ./packages/shared/dist
