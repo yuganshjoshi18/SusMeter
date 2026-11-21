@@ -16,7 +16,12 @@ export const config = {
   jwtSecret: process.env.JWT_SECRET || 'susmeter-development-secret-change-me',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   mlUrl: (process.env.ML_SERVICE_URL || 'http://localhost:8000').replace(/\/$/, ''),
-  webOrigin: process.env.WEB_ORIGIN || 'http://localhost:5173',
+  // Comma-separated origins are supported so local dev and the deployed site
+  // can both call the same API instance.
+  webOrigin: (process.env.WEB_ORIGIN || 'http://localhost:5173')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean),
   isProduction: process.env.NODE_ENV === 'production',
   cookieName: 'susmeter_session',
 };
