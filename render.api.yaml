@@ -1,0 +1,31 @@
+# Render Blueprint: Express API ONLY.
+# Deploy this independently from the Python ML service (render.ml.yaml).
+# Postgres is hosted by Supabase; the frontend is deployed to Netlify.
+
+services:
+  - type: web
+    name: susmeter-api
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    # Free web services do not support preDeployCommand, so migrations run here.
+    dockerCommand: 'sh -c "npx prisma migrate deploy --schema apps/api/prisma/schema.prisma && node apps/api/dist/server.js"'
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Supabase session pooler string (port 5432).
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      # Netlify origin, e.g. https://sus-meter.netlify.app. Comma-separated allowed.
+      - key: WEB_ORIGIN
+        sync: false
+      # Root URL of the separately-hosted ML service, e.g. https://susmeter.onrender.com
+      - key: ML_SERVICE_URL
+        sync: false

@@ -1,0 +1,22 @@
+# Render Blueprint: Python FastAPI ML service ONLY.
+# Deploy this independently from the Express API (render.api.yaml).
+# The API reaches this service through its ML_SERVICE_URL environment variable.
+
+services:
+  - type: web
+    # Kept as "susmeter" so the service URL is https://susmeter.onrender.com,
+    # matching the URL you supplied.
+    name: susmeter
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./apps/ml/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      # The API calls this service server-to-server; no browser CORS policy is needed.
+      - key: CORS_ORIGINS
+        value: '*'
+      - key: PYTHONUNBUFFERED
+        value: '1'
+      # Do NOT set PORT: Render injects it and apps/ml/Dockerfile uses ${PORT:-8000}.
