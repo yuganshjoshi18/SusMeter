@@ -93,13 +93,16 @@ root and respects `ML_PORT` from the shell or root `.env`.
 
 ## Deployment
 
+The three runtimes are hosted independently. Each has its own config file:
+
 | File / service | Role |
 | --- | --- |
 | Supabase project | Managed Postgres database |
-| `render.yaml` | Python FastAPI ML service (`susmeter-ml`) + Express API (`susmeter-api`) |
+| `render.ml.yaml` | Python FastAPI ML service (`susmeter`) |
+| `render.api.yaml` | Express API (`susmeter-api`) |
 | `netlify.toml` | React/Vite static frontend |
 
-FastAPI is Python-only, so it stays on Render alongside the Express API. The API reads the Supabase connection string from `DATABASE_URL`; Netlify serves only the built frontend.
+The API and ML service are **separate deployments** with separate URLs. The API calls the ML service server-to-server using `ML_SERVICE_URL`; Netlify serves only the built frontend.
 
 ### 1. Supabase database
 
@@ -111,44 +114,55 @@ postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.co
 ```
 
 3. For production, create a dedicated Prisma database role instead of using the `postgres` superuser. Follow the [Supabase Prisma guide](https://supabase.com/docs/guides/database/prisma) and use that role in the connection string.
-4. Keep the connection string secret. You will paste it into Render when prompted.
+4. Keep the connection string secret. You will paste it into the API service when prompted.
 
 The session pooler supports prepared statements, so the same URL works for both Prisma Client at runtime and `prisma migrate deploy` during startup. Supabase's transaction pooler (port `6543`) is an alternative for heavier traffic, but it needs `?pgbouncer=true` plus a separate direct URL for migrations.
 
-### 2. Backend on Render
+### 2. ML service (Render)
 
 1. Push this repo to GitHub.
-2. In Render, choose **Blueprints → New Blueprint Instance** and select the repo. Render reads `render.yaml` from the root.
-3. When Render prompts for variables:
+2. In Render, choose **Blueprints → New Blueprint Instance** and select the repo, then pick `render.ml.yaml` as the Blueprint file.
+3. This builds `apps/ml/Dockerfile` with the repo root as context. The service listens on Render's injected `PORT` (falling back to `8000` locally).
+4. Note the service URL — with the included name it is `https://susmeter.onrender.com`. Check it with:
+
+```bash
+curl https://susmeter.onrender.com/health
+```
+
+### 3. API service (Render)
+
+1. Create a **second** Blueprint instance from the same repo, this time selecting `render.api.yaml`.
+2. When Render prompts for variables:
    - `DATABASE_URL` — the Supabase session pooler string from step 1.
-   - `WEB_ORIGIN` — your final Netlify URL, e.g. `https://susmeter.netlify.app`. This is the API's allowed CORS origin.
+   - `WEB_ORIGIN` — your Netlify origin, `https://sus-meter.netlify.app`. Comma-separated values are supported.
+   - `ML_SERVICE_URL` — the ML service URL from step 2, e.g. `https://susmeter.onrender.com`.
    - `JWT_SECRET` is generated automatically by Render.
-4. The API container runs `prisma migrate deploy` before starting, so the existing migration is applied to Supabase on first deploy.
-5. Note the API URL (normally `https://susmeter-api.onrender.com`) and check:
+3. The API container runs `prisma migrate deploy` before starting, so the existing migration is applied to Supabase on first deploy.
+4. Note the API URL (normally `https://susmeter-api.onrender.com`) and check:
 
 ```bash
 curl https://susmeter-api.onrender.com/api/health
 curl https://susmeter-api.onrender.com/api/model/info
 ```
 
-If Render assigns a different hostname for the ML service, update `ML_SERVICE_URL` in the API service's environment and redeploy.
+The second command proves the API can reach the separately-hosted ML service. If you change the ML host later, update `ML_SERVICE_URL` on the API service and redeploy.
 
-### 3. Frontend on Netlify
+### 4. Frontend on Netlify
 
 1. In Netlify, choose **Add new site → Import an existing project** and select the same repo. `netlify.toml` supplies the build command, Node version, publish directory and SPA fallback.
-2. Set the API base URL (it must include the `/api` suffix):
+2. Set the API base URL (it must include the `/api` suffix and point at the **API**, not the ML service):
 
 ```bash
 netlify env:set VITE_API_URL https://susmeter-api.onrender.com/api
 ```
 
-3. Trigger a deploy. Update `WEB_ORIGIN` on Render if your Netlify URL differs from the one entered above.
+3. Trigger a deploy. Update `WEB_ORIGIN` on the API service if your Netlify URL differs from the one entered above.
 
 > `VITE_API_URL` is a public build-time variable baked into the client bundle; never put secrets in it. Leave it empty only for local development, where Vite proxies `/api` to `http://localhost:4000`.
 
-### 4. Free-plan caveat
+### 5. Free-plan caveat
 
-Render's free web services sleep when idle and the API's ML call times out after 25 seconds. A cold ML start can exceed that. If users see "The analysis service is unavailable", upgrade `susmeter-ml` and `susmeter-api` to a paid always-on plan in `render.yaml`.
+Render's free web services sleep when idle and the API's ML call times out after 25 seconds. A cold ML start can exceed that. If users see "The analysis service is unavailable", upgrade both services to a paid always-on plan in `render.api.yaml` and `render.ml.yaml`.
 
 ---
 

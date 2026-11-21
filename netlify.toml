@@ -1,5 +1,6 @@
-# Netlify deploys only the React/Vite frontend. The Express API, FastAPI ML
-# service and Postgres are deployed by render.yaml.
+# Netlify deploys only the React/Vite frontend. The Express API and FastAPI ML
+# service are separate deployments (render.api.yaml and render.ml.yaml);
+# Postgres is hosted by Supabase.
 
 [build]
   base = "/"
